@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Login Records</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Last seen</th>
+      <th>Token</th>
+      <th>Device</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @login_records.each do |login_record| %>
+      <tr>
+        <td><%= login_record.last_seen %></td>
+        <td><%= login_record.token %></td>
+        <td><%= login_record.device %></td>
+        <td><%= link_to 'Show', login_record %></td>
+        <td><%= link_to 'Edit', edit_login_record_path(login_record) %></td>
+        <td><%= link_to 'Destroy', login_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Login Record', new_login_record_path %>
