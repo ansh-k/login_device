@@ -1,10 +1,8 @@
 class ApplicationController < ActionController::Base
+  #include LoginDevice::Controllers::ApplicationController
+  #include LoginDevice\
+  include LoginDevice
   before_action :authenticate_user!
   protect_from_forgery with: :exception
-  before_action :check_user
-  # Warden::Manager.after_authentication do |user,auth,opts|
-  #     byebug
-  #     user.last_login = Time.now
-  #   end
   
 end

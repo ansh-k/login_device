@@ -1,8 +1,8 @@
 # LoginDevice
-Short description and motivation.
+This Gem is collect user's login records
 
 ## Usage
-How to use my plugin.
+Must required Devise gem
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -21,8 +21,28 @@ Or install it yourself as:
 $ gem install login_device
 ```
 
-## Contributing
-Contribution directions go here.
+Run Following command to copy Engine migrations
+`rails login_device:install:migrations`
+and run `rails db:migrate`
+
+Add Following lines in `config/routs.rb` file
+`mount LoginDevice::Engine => "/login_device"`
+
+Copy following lines in coinfig/initializers/devise.rb
+```
+  include LoginDevice::LoginRecordsHelper
+  Warden::Manager.after_authentication do |user, auth, opts|
+    LoginDevice::LoginRecordsHelper.check_device(user,auth.cookies, auth.request)
+  end
+
+  Warden::Manager.after_set_user do |user, auth, opts|
+    LoginDevice::LoginRecordsHelper.check_device(user,auth.cookies, auth.request)
+  end
+
+  Warden::Manager.before_logout do |user, auth, opts|
+    LoginDevice::LoginRecordsHelper.remove_record(user,auth.cookies, auth.request)
+  end
+  ```
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
