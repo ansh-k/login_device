@@ -3,11 +3,14 @@ module LoginDevice
     def check_device(current_user, cookies, request)
       if current_user.present? 
         if cookies[:token].nil?
+          # TO create user's device record
           record = create_record(current_user, request)
+          # To create token and cookies
           update_token(record, cookies)
         else
           record = get_user_by_token(cookies)
         end
+        #To update User's last seen Device record
         update_last_seen(record)
       end
     end
@@ -15,6 +18,7 @@ module LoginDevice
     def remove_record(current_user, cookies, request)
       if current_user.present?
         record = get_user_by_token(cookies)
+        #To update User's last seen Device record
         update_last_seen(record)
         remove_token(cookies, record)
       end
