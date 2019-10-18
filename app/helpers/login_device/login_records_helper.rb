@@ -20,6 +20,7 @@ module LoginDevice
         record = get_user_by_token(cookies)
         #To update User's last seen Device record
         update_last_seen(record)
+        #To remove cookies and disable user's device
         remove_token(cookies, record)
       end
     end
