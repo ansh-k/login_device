@@ -43,6 +43,8 @@ Copy following lines in coinfig/initializers/devise.rb
     LoginDevice::LoginRecordsHelper.remove_record(user,auth.cookies, auth.request)
   end
   ```
+To check the login devices of logged in user
+`/login_device`
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
